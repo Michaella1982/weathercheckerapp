@@ -1,0 +1,127 @@
+<div class="container">
+
+    <div class="row">
+   
+    <div class="col-md-6">
+   
+    <h3 class="text-center my-4">Search for Weather:</h3>
+   
+    <!--this is the search form for the user to input city or zip-->
+   
+    <form
+   
+    [formGroup]="weatherSearchForm"
+   
+    (ngSubmit)="sendToAPIXU(weatherSearchForm.value)"
+   
+    >
+   
+    <div class="form-group">
+   
+    <input
+   
+    class="form-control"
+   
+    type="text"
+   
+    id="weatherLocation"
+   
+    aria-describedby="weatherLocation"
+   
+    placeholder="Please input a Location"
+   
+    formControlName="location"
+   
+    />
+   
+    </div>
+   
+    <div
+   
+    *ngIf="
+   
+    this.weatherSearchForm.controls.location.invalid &&
+   
+    (this.weatherSearchForm.controls.location.dirty ||
+   
+    this.weatherSearchForm.controls.location.touched)
+   
+    "
+   
+    class="alert alert-danger"
+   
+    >
+   
+    <div *ngIf="this.weatherSearchForm.controls.location.errors.required">
+   
+    Input is required.
+   
+    </div>
+   
+    </div>
+   
+    <div class="text-center">
+   
+    <button type="submit" class="btn btn-success btn-md">
+   
+    Search Weather
+   
+    </button>
+   
+    </div>
+   
+    </form>
+   
+    </div>
+   
+    <div class="col-md-6">
+   
+    <h3 class="text-center my-4">Weather Details:</h3>
+   
+    <!--The following divs hold the json calls from the weather service-->
+   
+    <div class="text-center">
+   
+    <img src="{{ this.weatherData?.current.weather_icons }}" />
+   
+    </div>
+   
+    <div class="text-center" *ngIf="this.weatherData?.current.temperature">
+   
+    Current Temperature:
+   
+    {{ this.weatherData?.current.temperature }}F
+   
+    </div>
+   
+    <div class="text-center" *ngIf="this.weatherData?.current.wind_speed">
+   
+    Current Wind Speed:
+   
+    {{ this.weatherData?.current.wind_speed }}MPH
+   
+    </div>
+   
+    <div class="text-center" *ngIf="weatherData?.location.name">
+   
+    Location Searched: {{ this.weatherData?.location.name }},
+   
+    {{ this.weatherData?.location.country }}
+   
+    </div>
+   
+    <div class="text-center" *ngIf="this.weatherData?.location.localtime">
+   
+    Current Time:
+   
+    <!--Used the built-in "short" date pipe below-->
+   
+    {{ this.weatherData?.location.localtime | date: "short" }}
+   
+    </div>
+   
+    </div>
+   
+    </div>
+   
+   </div>
